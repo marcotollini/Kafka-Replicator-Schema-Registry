@@ -1,0 +1,28 @@
+{
+    "src_topics": [""],
+    "dst_topic": "",
+    "src_schema_registry": {
+        "url": "",
+        "ssl.ca.location": ""
+    },
+    "dst_schema_registry": {
+        "url": ""
+    },
+    "src_kafka": {
+        "bootstrap.servers": "",
+        "security.protocol": "SSL",
+        "ssl.certificate.location": "",
+        "ssl.key.location": "",
+        "ssl.ca.location": "",
+        "group.id": "",
+        "client.id": ""
+    },
+    "dst_kafka": {
+        "bootstrap.servers": "",
+        "security.protocol": "SASL_SSL",
+        "sasl.mechanisms": "SCRAM-SHA-512",
+        "sasl.username": "",
+        "sasl.password": ""
+    },
+    "subject_name": "replicator"
+}
