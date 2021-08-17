@@ -1,0 +1,1 @@
+kafka-replicator-schema-registry
