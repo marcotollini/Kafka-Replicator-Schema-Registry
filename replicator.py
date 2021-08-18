@@ -109,6 +109,7 @@ def main():
                 dst_schema_id = schema_mapper.get_dst_schema_id(src_schema_id)
                 new_value = pack(dst_schema_id, data)
                 p.produce(config['dst_topic'], value=new_value, callback=acked)
+                p.poll(0)
             except Exception as e:
                 traceback.print_exc()
     finally:
