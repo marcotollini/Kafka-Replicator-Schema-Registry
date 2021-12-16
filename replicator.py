@@ -4,6 +4,7 @@ from confluent_kafka.avro.cached_schema_registry_client import CachedSchemaRegis
 import json
 import traceback
 import signal
+from time import sleep
 
 class SchemaMapper:
     def __init__(self, src_schema_conf, dst_schema_conf, subject_name):
@@ -112,6 +113,8 @@ def main():
                 p.poll(0)
             except Exception as e:
                 traceback.print_exc()
+    except Exception as e:
+        traceback.print_exc()
     finally:
         p.flush()
         c.close()
@@ -120,7 +123,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        main()
+        sleep(1)
 
 
 
