@@ -83,6 +83,16 @@ def exit_gracefully(signal, frame):
     global running
     running = False
 
+
+def produce(p, topic, value):
+    try:
+        p.produce(topic, value=value)
+        p.poll(0)
+    except BufferError as e:
+        print(e, 'waiting 10 seconds and trying again')
+        sleep(10)
+        produce(p, topic, value)
+
 def main():
     args = parse_args()
     config = config_reader(args.config_path)
@@ -109,8 +119,7 @@ def main():
                 src_schema_id, data = unpack(value)
                 dst_schema_id = schema_mapper.get_dst_schema_id(src_schema_id)
                 new_value = pack(dst_schema_id, data)
-                p.produce(config['dst_topic'], value=new_value, callback=acked)
-                p.poll(0)
+                produce(p, config['dst_topic'], new_value)
             except Exception as e:
                 traceback.print_exc()
     except Exception as e:
