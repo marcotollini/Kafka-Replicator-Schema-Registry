@@ -52,7 +52,12 @@ def get_consumer(kafka_config, topics):
     c.subscribe(topics)
     return c
 
+def stats_cb(stats_json_str):
+    stats_json = json.loads(stats_json_str)
+    print(stats_json)
+
 def get_producer(kafka_config):
+    kafka_config['stats_cb'] = stats_cb
     p = Producer(kafka_config)
     return p
 
